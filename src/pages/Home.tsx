@@ -21,11 +21,7 @@ const Home: React.FC = () => {
                         <TodoEditor />
                     </Col>
                     <Col md={12}>
-                        <TodoItem
-                            title="First task"
-                            done={false}
-                            priority={1}
-                        />
+                        <TodoList />
                     </Col>
                 </Row>
             </Content>

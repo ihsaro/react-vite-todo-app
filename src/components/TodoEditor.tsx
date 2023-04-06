@@ -1,8 +1,11 @@
 import { SaveOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
 import * as React from "react";
+import { TodoContext } from "~/contexts/TodoContext";
 
 const TodoEditor: React.FC = () => {
+    const todoContext = React.useContext(TodoContext);
+
     type Priority = {
         value: number;
         label: string;
@@ -24,7 +27,8 @@ const TodoEditor: React.FC = () => {
     ];
 
     const onFinish = (values: any) => {
-        console.log("Success:", values);
+        console.log(values);
+        todoContext.handleAddTodo(values);
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -40,9 +44,9 @@ const TodoEditor: React.FC = () => {
             autoComplete="off"
         >
             <Form.Item
-                label="Name"
-                name="name"
-                rules={[{ required: true, message: "Task name required!" }]}
+                label="Title"
+                name="title"
+                rules={[{ required: true, message: "Task title required!" }]}
             >
                 <Input />
             </Form.Item>
@@ -59,7 +63,7 @@ const TodoEditor: React.FC = () => {
                         </Form.Item>
                     </Col>
                     <Col>
-                        <Form.Item name="priority">
+                        <Form.Item name="priority" rules={[{ required: true, message: "Priority required!" }]}>
                             <Select
                                 showSearch
                                 style={{ width: 160 }}

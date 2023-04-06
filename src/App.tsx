@@ -2,9 +2,22 @@ import { ConfigProvider, theme } from "antd";
 import * as React from "react";
 import Home from "~/pages/Home";
 import { ThemeContext } from "~/contexts/ThemeContext";
+import {
+    initialState,
+    TodoProps,
+    TodoReducer,
+} from "~/store/reducers/TodoReducer";
+import { add } from "~/store/actions/TodoAction";
+import { TodoContext } from "~/contexts/TodoContext";
 
 const App: React.FC = () => {
     const [darkMode, setDarkMode] = React.useState(false);
+
+    const [todos, dispatch] = React.useReducer(TodoReducer, initialState);
+
+    const handleAddTodo = (payload: TodoProps) => {
+        dispatch(add(payload));
+    };
 
     const { defaultAlgorithm, darkAlgorithm } = theme;
 
@@ -37,7 +50,14 @@ const App: React.FC = () => {
                     setDarkMode: setDarkMode,
                 }}
             >
-                <Home />
+                <TodoContext.Provider
+                    value={{
+                        todos,
+                        handleAddTodo,
+                    }}
+                >
+                    <Home />
+                </TodoContext.Provider>
             </ThemeContext.Provider>
         </ConfigProvider>
     );
