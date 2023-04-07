@@ -4,6 +4,7 @@ import * as React from "react";
 import { TodoContext } from "~/contexts/TodoContext";
 
 const TodoEditor: React.FC = () => {
+    const [form] = Form.useForm();
     const todoContext = React.useContext(TodoContext);
 
     type Priority = {
@@ -29,6 +30,7 @@ const TodoEditor: React.FC = () => {
     const onFinish = (values: any) => {
         console.log(values);
         todoContext.handleAddTodo(values);
+        // form.resetFields();
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -39,6 +41,7 @@ const TodoEditor: React.FC = () => {
         <Form
             layout="vertical"
             name="basic"
+            form={form}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
@@ -58,12 +61,20 @@ const TodoEditor: React.FC = () => {
             <Form.Item>
                 <Row gutter={25}>
                     <Col>
-                        <Form.Item name="done">
+                        <Form.Item name="done" valuePropName="checked">
                             <Checkbox>Mark as done</Checkbox>
                         </Form.Item>
                     </Col>
                     <Col>
-                        <Form.Item name="priority" rules={[{ required: true, message: "Priority required!" }]}>
+                        <Form.Item
+                            name="priority"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Priority required!",
+                                },
+                            ]}
+                        >
                             <Select
                                 showSearch
                                 style={{ width: 160 }}

@@ -11,16 +11,16 @@ const Home: React.FC = () => {
     const { darkMode, setDarkMode } = useThemeContext();
 
     return (
-        <Layout className="fixed top-0 left-0 w-full h-full">
+        <Layout className="-m-2 min-h-screen">
             <Header className="bg-inherit">
                 <Title className="text-center">Todo or not Todo</Title>
             </Header>
-            <Content className="p-20">
+            <Content className="h-full p-20">
                 <Row gutter={150}>
-                    <Col md={12}>
+                    <Col md={12} xs={24}>
                         <TodoEditor />
                     </Col>
-                    <Col md={12}>
+                    <Col md={12} xs={24}>
                         <TodoList />
                     </Col>
                 </Row>

@@ -16,27 +16,21 @@ const TodoItem: React.FC<Props> = (props) => {
             extra={<PriorityIndicator priority={props.priority} />}
             size="small"
         >
-            <Row align="middle" gutter={10}>
-                <Col xs={24} md={8} className="p-2">
-                    <Checkbox checked={props.done}>Mark as done</Checkbox>
-                </Col>
-                <Col xs={24} md={8} className="p-2">
-                    <Popover
-                        placement="top"
-                        content={props.description}
-                        trigger="click"
-                    >
-                        <Button type="primary" ghost>
-                            View details
-                        </Button>
-                    </Popover>
-                </Col>
-                <Col xs={24} md={8} className="p-2">
-                    <Button danger ghost>
-                        Edit
-                    </Button>
-                </Col>
-            </Row>
+            <Checkbox className="m-2" checked={props.done}>
+                Mark as done
+            </Checkbox>
+            <Popover
+                placement="top"
+                content={props.description}
+                trigger="click"
+            >
+                <Button className="m-2" type="primary" ghost>
+                    View details
+                </Button>
+            </Popover>
+            <Button className="m-2" danger ghost>
+                Edit
+            </Button>
         </Card>
     );
 };
