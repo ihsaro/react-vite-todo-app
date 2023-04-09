@@ -10,9 +10,9 @@ const TodoList: React.FC = () => {
     return (
         <Row gutter={25}>
             {todoContext.todos.map((todo: TodoProps, index: number) => (
-                <Col className="mt-5" sm={12} xs={24}>
+                <Col key={`todo-${index}`} className="mt-5" sm={12} xs={24}>
                     <TodoItem
-                        key={`todo-${index}`}
+                        id={todo.id}
                         title={todo.title}
                         description={todo.description}
                         priority={todo.priority}

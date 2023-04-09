@@ -7,3 +7,17 @@ export const add = (payload: TodoProps): TodoAction => {
         payload,
     };
 };
+
+export const edit = (payload: TodoProps): TodoAction => {
+    return {
+        type: ActionType.EDIT,
+        payload,
+    };
+};
+
+export const remove = (payload: TodoProps): TodoAction => {
+    return {
+        type: ActionType.REMOVE,
+        payload,
+    };
+};

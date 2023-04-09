@@ -21,7 +21,16 @@ export const TodoReducer = (
 ) => {
     switch (action.type) {
         case ActionType.ADD:
+            action.payload.id = state.length + 1;
             return [...state, action.payload];
+        case ActionType.EDIT:
+            return state.map((todo) => {
+                if (todo.id === action.payload.id) {
+                    return action.payload;
+                } else {
+                    return todo;
+                }
+            });
         default:
             return state;
     }

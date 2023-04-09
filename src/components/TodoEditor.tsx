@@ -62,7 +62,7 @@ const TodoEditor: React.FC = () => {
                 <Row gutter={25}>
                     <Col>
                         <Form.Item name="done" valuePropName="checked">
-                            <Checkbox>Mark as done</Checkbox>
+                            <Checkbox checked={false}>Mark as done</Checkbox>
                         </Form.Item>
                     </Col>
                     <Col>
