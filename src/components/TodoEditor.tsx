@@ -2,8 +2,15 @@ import { SaveOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
 import * as React from "react";
 import { TodoContext } from "~/contexts/TodoContext";
+import { TodoProps } from "~/store/reducers/TodoReducer";
 
-const TodoEditor: React.FC = () => {
+interface Props {
+    todo?: TodoProps;
+    mode: "CREATE" | "EDIT";
+    onSavePostAction?(): void;
+}
+
+const TodoEditor: React.FC<Props> = (props) => {
     const [form] = Form.useForm();
     const todoContext = React.useContext(TodoContext);
 
@@ -28,13 +35,18 @@ const TodoEditor: React.FC = () => {
     ];
 
     const onFinish = (values: any) => {
-        console.log(values);
-        todoContext.handleAddTodo(values);
-        // form.resetFields();
+        if (props.mode === "CREATE") todoContext.handleAddTodo(values);
+        else todoContext.handleEditTodo({ ...values, id: props.todo?.id });
+
+        form.resetFields();
+
+        if (props.onSavePostAction) {
+            props.onSavePostAction();
+        }
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log("Failed:", errorInfo);
+    const onFinishFailed = (values: any) => {
+        console.log(values);
     };
 
     return (
@@ -50,19 +62,38 @@ const TodoEditor: React.FC = () => {
                 label="Title"
                 name="title"
                 rules={[{ required: true, message: "Task title required!" }]}
+                initialValue={
+                    props.mode === "EDIT" && props.todo ? props.todo.title : ""
+                }
             >
                 <Input />
             </Form.Item>
 
-            <Form.Item label="Description" name="description">
+            <Form.Item
+                label="Description"
+                name="description"
+                initialValue={
+                    props.mode === "EDIT" && props.todo
+                        ? props.todo.description
+                        : ""
+                }
+            >
                 <Input.TextArea placeholder="Enter more details" />
             </Form.Item>
 
             <Form.Item>
                 <Row gutter={25}>
                     <Col>
-                        <Form.Item name="done" valuePropName="checked">
-                            <Checkbox checked={false}>Mark as done</Checkbox>
+                        <Form.Item
+                            name="done"
+                            valuePropName="checked"
+                            initialValue={
+                                props.mode === "EDIT" && props.todo
+                                    ? props.todo.done
+                                    : false
+                            }
+                        >
+                            <Checkbox>Mark as done</Checkbox>
                         </Form.Item>
                     </Col>
                     <Col>
@@ -74,6 +105,11 @@ const TodoEditor: React.FC = () => {
                                     message: "Priority required!",
                                 },
                             ]}
+                            initialValue={
+                                props.mode === "EDIT" && props.todo
+                                    ? props.todo.priority
+                                    : null
+                            }
                         >
                             <Select
                                 showSearch

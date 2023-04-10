@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Col, Layout, Row, Switch, Typography } from "antd";
-import { TodoEditor, TodoItem, TodoList } from "~/components";
+import { TodoEditor, TodoList } from "~/components";
 import { useThemeContext } from "~/contexts/ThemeContext";
 
 const { Header, Content, Footer } = Layout;
@@ -18,7 +18,7 @@ const Home: React.FC = () => {
             <Content className="h-full p-20">
                 <Row gutter={150}>
                     <Col md={12} xs={24}>
-                        <TodoEditor />
+                        <TodoEditor mode="CREATE" />
                     </Col>
                     <Col md={12} xs={24}>
                         <TodoList />

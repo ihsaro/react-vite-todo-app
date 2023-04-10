@@ -7,7 +7,7 @@ import {
     TodoProps,
     TodoReducer,
 } from "~/store/reducers/TodoReducer";
-import { add, edit } from "~/store/actions/TodoAction";
+import { add, edit, remove } from "~/store/actions/TodoAction";
 import { TodoContext } from "~/contexts/TodoContext";
 
 const App: React.FC = () => {
@@ -21,6 +21,10 @@ const App: React.FC = () => {
 
     const handleEditTodo = (payload: TodoProps) => {
         dispatch(edit(payload));
+    };
+
+    const handleRemoveTodo = (payload: TodoProps) => {
+        dispatch(remove(payload));
     };
 
     const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -59,6 +63,7 @@ const App: React.FC = () => {
                         todos,
                         handleAddTodo,
                         handleEditTodo,
+                        handleRemoveTodo,
                     }}
                 >
                     <Home />

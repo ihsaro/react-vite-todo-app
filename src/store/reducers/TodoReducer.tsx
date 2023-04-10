@@ -31,6 +31,8 @@ export const TodoReducer = (
                     return todo;
                 }
             });
+        case ActionType.REMOVE:
+            return state.filter((todo) => todo.id !== action.payload.id);
         default:
             return state;
     }
