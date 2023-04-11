@@ -6,7 +6,7 @@ import { TodoProps } from "~/store/reducers/TodoReducer";
 import TodoEditor from "./TodoEditor";
 import { DeleteOutlined } from "@ant-design/icons";
 
-interface Props extends TodoProps { }
+interface Props extends TodoProps {}
 
 const TodoItem: React.FC<Props> = (props) => {
     const todoContext = React.useContext(TodoContext);
@@ -59,8 +59,8 @@ const TodoItem: React.FC<Props> = (props) => {
                     }}
                 ></Button>
             </Card>
-            {
-                isModalOpen && <Modal
+            {isModalOpen && (
+                <Modal
                     title="Edit todo"
                     open={isModalOpen}
                     onCancel={() => setIsModalOpen(false)}
@@ -72,8 +72,7 @@ const TodoItem: React.FC<Props> = (props) => {
                         onSavePostAction={() => setIsModalOpen(false)}
                     />
                 </Modal>
-            }
-
+            )}
         </>
     );
 };
